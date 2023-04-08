@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}}</title>
+</head>
+<body>
+  <main>
+    <div id="info">
+
+    </div>
+    <!-- grid -->
+    <div id="playingField">
+      <app-play-field playerMove={{playerMove}} (newItemEvent)="addItem($event)"  generateX=15 generateY=15 tileMarkRef={{tileMarkRef}}>
+
+      </app-play-field>
+    </div>
+  </main>
+</body>
+</html>
+
+<router-outlet></router-outlet>

@@ -1,0 +1,4 @@
+<div class="cell-row row center-xs" *ngFor="let row of cellsY index as y">
+    <app-play-cell playerMove={{playerMove}} (newItemEvent)="addItem($event)" class="cell col" *ngFor="let cell of cellsX index as x" posX = {{x}} posY = {{y}} tileMarkRef={{tileMarkRef}}>
+    </app-play-cell>
+</div>
