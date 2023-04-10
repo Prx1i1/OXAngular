@@ -62,6 +62,11 @@ export class AppComponent {
     while(true){
     let possibleMovesArray: number[][] = this.getMovesBot(contestedMoves); //base 4
     if (possibleMovesArray.length > 0){
+
+      //highlights
+      this.field.setHighlights(possibleMovesArray)
+
+      //making move
       this.makeMove(possibleMovesArray[Math.floor(Math.random() * (possibleMovesArray.length - 1))])
       possibleMovesArray = []
       console.log("Chosen move of simplicity:", contestedMoves)
@@ -112,10 +117,10 @@ export class AppComponent {
           if(tileCounter >= tileLimiter){
             try{
             if(this.tilesArray[m][n] == 0){
-              tileCoords.push([m, n])
+              tileCoords.push([m, n, -2])
             }
             if(this.tilesArray[m][n - (tileCounter +1)] == 0){
-              tileCoords.push([m, n - (tileCounter +1)])
+              tileCoords.push([m, n - (tileCounter +1), -1])
             }
             }catch{}
           }
@@ -136,10 +141,10 @@ export class AppComponent {
           if(tileCounter >= tileLimiter){
             try{
             if(this.tilesArray[n][m] == 0){
-              tileCoords.push([n, m])
+              tileCoords.push([n, m, 1])
             }
             if(this.tilesArray[(n - (tileCounter +1))][m] == 0){
-              tileCoords.push([n - (tileCounter +1), m])
+              tileCoords.push([n - (tileCounter +1), m, 2])
             }
             // tileCoords.push([n, m], [n, m - (tileCounter + 1)]) // tiles: _xxx_
             }catch{}
@@ -171,10 +176,10 @@ export class AppComponent {
           if(tileCounter >= tileLimiter){
             try{
             if(this.tilesArray[m + n][n] == 0){
-              tileCoords.push([m + n, n])
+              tileCoords.push([m + n, n, 3])
             }
             if(this.tilesArray[m + n - (tileCounter + 1)][n - (tileCounter + 1)] == 0){
-              tileCoords.push([n - (tileCounter + 1) + m, n - (tileCounter + 1)])
+              tileCoords.push([n - (tileCounter + 1) + m, n - (tileCounter + 1), 4])
             }
             //console.log("normal")
             // tileCoords.push([n, m], [n, m - (tileCounter + 1)]) // tiles: _xxx_
@@ -196,10 +201,10 @@ export class AppComponent {
           if(tileCounterMirror >= tileLimiter){
             try{
             if(this.tilesArray[n][m + n] == 0){
-              tileCoords.push([n, m + n])
+              tileCoords.push([n, m + n, 5])
             }
             if(this.tilesArray[n - (tileCounterMirror + 1)][m + n - (tileCounterMirror + 1)] == 0){
-              tileCoords.push([n - (tileCounterMirror + 1), n - (tileCounterMirror + 1) + m])
+              tileCoords.push([n - (tileCounterMirror + 1), n - (tileCounterMirror + 1) + m, 6])
             }
             // tileCoords.push([n, m], [n, m - (tileCounter + 1)]) // tiles: _xxx_
             }catch{}
@@ -234,10 +239,10 @@ export class AppComponent {
           if(tileCounter >= tileLimiter){
             try{
             if(this.tilesArray[14 - (m + n)][n] == 0){
-              tileCoords.push([14 - (m + n), n])
+              tileCoords.push([14 - (m + n), n, 7])
             }
-            if(this.tilesArray[14 - (m + n) - (tileCounter + 1)][n - (tileCounter + 1)] == 0){
-              tileCoords.push([14 - (m + n) - (tileCounter + 1), n - (tileCounter + 1)])
+            if(this.tilesArray[14 - (m + n) + (tileCounter + 1)][n - (tileCounter + 1)] == 0){
+              tileCoords.push([14 - (m + n) + (tileCounter + 1), n - (tileCounter + 1), 8])
             }
             // tileCoords.push([n, m], [n, m - (tileCounter + 1)]) // tiles: _xxx_
             }catch{}
@@ -250,27 +255,24 @@ export class AppComponent {
       }
       try{
         //mirror
-        let cellMirror = this.tilesArray[n][14 - (m + n)]
+        let cellMirror = this.tilesArray[14 - n][(m + n)]
 
         if(cellMirror == 1){
           tileCounterMirror += 1
         }else{
           if(tileCounterMirror >= tileLimiter){
             try{
-            if(this.tilesArray[n][14 - (m + n)] == 0){
-              tileCoords.push([n, 14 - (m + n)])
+            if(this.tilesArray[14 - n][(m + n)] == 0){
+              tileCoords.push([14 - n, (m + n), 9])
             }
-            if(this.tilesArray[n - (tileCounterMirror + 1)][14 - (m + n) - (tileCounterMirror + 1)] == 0){
-              tileCoords.push([n - (tileCounterMirror + 1), 14 - (m + n) - (tileCounterMirror + 1)])
+            if(this.tilesArray[14 - n + (tileCounterMirror + 1)][(m + n) - (tileCounterMirror + 1)] == 0){
+              tileCoords.push([14 - n + (tileCounterMirror + 1),(m + n) - (tileCounterMirror + 1), 10])
             }
-            // tileCoords.push([n, m], [n, m - (tileCounter + 1)]) // tiles: _xxx_
             }catch{}
           }
           tileCounterMirror = 0
         }
-        //counter at 3
       }catch{
-       // console.log("out of bounds")
       }
 
       })

@@ -30,6 +30,20 @@ export class PlayFieldComponent extends HTMLElement implements OnInit {
     super()
    }
 
+  public setHighlights = (moves: number[][]) => {
+
+    moves.map(element => {
+      this.cellsQuery.map(cell => {
+      if(cell.posX == String(element[0]) && cell.posY == String(element[1])){
+        //cell.backgroundColor = "red";
+        //cell.cellText = String(element[2]);
+      }
+    })
+    })
+
+
+  }
+
   public setBotSymbols = (y:number, x:number) => {
     console.log("bot is setting tile")
     this.cellsQuery.map(cell => {
